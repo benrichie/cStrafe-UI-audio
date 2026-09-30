@@ -1,10 +1,9 @@
 # cStrafe Audio (fork)
 
-Fork of [cs2kitchen/cStrafe-UI-minimal](https://github.com/cs2kitchen/cStrafe-UI-minimal), a CS2 counter-strafe trainer. Made for personal use. Changes written with Claude (AI) and lightly tested.
-
-![UI Preview](images/strafe_ui_2.gif)
-
 <!-- Demo video (with sound):  -->
+https://github.com/user-attachments/assets/7dda5fa9-032e-4c83-b682-00f5dfe5d70e
+
+Fork of [cs2kitchen/cStrafe-UI-minimal](https://github.com/cs2kitchen/cStrafe-UI-minimal), a CS2 counter-strafe trainer. Made for personal use. Changes written with Claude (AI) and lightly tested.
 
 ## Run
 
