@@ -26,3 +26,9 @@ SHOOT_BUTTON = "left"
 
 # Left handed users can change it to:
 #SHOOT_BUTTON = "right"
+
+
+# Crouch key: shots fired while it is held show "Crouching" (no sound).
+# Use a key name in quotes ('ctrl', 'shift', 'alt', 'space', 'caps_lock', ...) or a single
+# character ('c'). A bare name like 'shift' matches left and right; use 'shift_l' for left only.
+CROUCH_KEY = "ctrl"

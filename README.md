@@ -1,44 +1,46 @@
-# cStrafe UI by CS2Kitchen
+# cStrafe Audio (fork)
 
-This is the second project in this domain. I made this so it could be more simplified and not too confusing like the previous version.This is a lightweight training tool to help players practice  counterstrafing mechanics in CS2. It listens to your movement keys (W, A, S and D) and the left mouse button to decide whether you fired while coming to a full stop, started moving the other way or were still overlapping directions.
+Fork of [cs2kitchen/cStrafe-UI-minimal](https://github.com/cs2kitchen/cStrafe-UI-minimal), a CS2 counter-strafe trainer. Made for personal use. Changes written with Claude (AI) and lightly tested.
 
 ![UI Preview](images/strafe_ui_2.gif)
 
+<!-- Demo video (with sound):  -->
 
-## Installation
+## Run
 
-1. Make sure you have a recent Python installed. ( Install 3.13 from microsoft store if you get into issues)
-2. Install the required dependency:
+```bash
+pip install pynput
+python main.py        # --debug logs key events
+```
 
-   ```bash
-   pip install pynput tkinter
-   ```
+CS2 must be borderless windowed to view hud. **F6** hide · **F7** mute · **F8** exit · **=** / **-** size
 
-   The Tkinter library (`tkinter`) is included with most standard Python installations on Windows and macOS.
+## Labels
 
-3. Download or clone this repository, then run the program from the project directory:
+| Label | Sound | Rule |
+|---|---|---|
+| Perfect | bright arpeggio | ≤ 50 ms release → opposite press, ≤ 110 ms press → shot |
+| Good | soft ping | Valid counter-strafe that isn't Perfect |
+| Bad | soft low tone | Too slow, or no counter-strafe (including release only) |
+| Overlap | double beep | Opposing keys held together ≥ 25 ms |
+| Standing still | none | No keys held |
+| Crouching | none | Crouch key held |
 
-   ```bash
-   python main.py
-   ```
+Thresholds: top of `classifier.py`.
 
-## Usage
+## Changes
 
-When the application is running, an overlay appears on top of your game window. It updates whenever you fire the left mouse button. You can drag it to any part of screen. Make sure to run your game in fullscreen windowed(won't work in fullscreen). You can control the overlay with a few simple keys:
+- Audio feedback (`audio.py`), F7 mute
+- Perfect / Good / Bad tiers (original: Counter-strafe / Overlap / Bad)
+- Crouching label, no sound; `CROUCH_KEY` in `movement_keys.py`
+- Standing still label, no sound
+- Movement keys still read while Ctrl is held (Windows)
+- Overlap only counts if ≥ 25 ms and recent (original never expired it until the next shot)
+- Hall effect fix: new key pressed just before the old one lifts (< 25 ms) = instant counter-strafe, not Overlap
+- Counter-strafe still counts if the counter key is released before the shot
+- Overlay shows overlap length and ms since release
+- Key auto-repeat ignored
+- `--debug` key event log
+- Fixed install line, added `.gitignore`
 
-- **F6** – hide or show the overlay without quitting.
-- **F8** – exit the program.
-- **=** – increase the size of the overlay text.
-- **-** – decrease the size of the overlay text.
-
-## Classification Labels
-
-After each shot the tool displays one of three labels along with timing information (when applicable):
-
-| Label            | Description |
-|------------------|-------------|
-| **Counter‑strafe** | You released one movement key and quickly pressed the opposite key before shooting. A valid counterstrafe should be followed by a shot within a short delay. The overlay shows the time between the key release and the opposite key press (*CS time*) and the delay between pressing the opposite key and firing (*Shot delay*). |
-| **Overlap** | Both opposing movement keys were held at the same time. This indicates overlapping movement, which should be avoided for accurate shooting. The overlay shows how long the keys overlapped before the shot. |
-| **Bad** | No valid counterstrafe pattern was detected before the shot. This can mean you shot without changing direction, your movement timing was too slow or you were moving in only one direction. |
-
-Keep your movements crisp and have fun hope this helps you :D
+Original by CS2 Kitchen, MIT (see `LICENSE`).

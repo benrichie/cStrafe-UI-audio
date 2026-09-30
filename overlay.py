@@ -53,23 +53,16 @@ class Overlay:
             self.root.geometry(f"+{x}+{y}")
 
     def update_result(self, classification: ShotClassification) -> None:
-        label = classification.label
-        lines = [f"Classification: {label}"]
-        if label == "Counter‑strafe" and classification.cs_time is not None and classification.shot_delay is not None:
-            lines.append(f"CS time: {classification.cs_time:.0f} ms")
-            lines.append(f"Shot delay: {classification.shot_delay:.0f} ms")
-        elif label == "Overlap" and classification.overlap_time is not None:
-            lines.append(f"Overlap: {classification.overlap_time:.0f} ms")
-        elif label == "Bad" and classification.cs_time is not None and classification.shot_delay is not None:
-            lines.append(f"CS time: {classification.cs_time:.0f} ms")
-            lines.append(f"Shot delay: {classification.shot_delay:.0f} ms")
         colours = {
-            "Counter‑strafe": "#228b22",
+            "Perfect": "#0f9d58",
+            "Good": "#228b22",
             "Overlap": "#ff8c00",
             "Bad": "#cc0000",
+            "Standing": "#404040",
+            "Crouching": "#2a6f7f",
         }
-        bg_colour = colours.get(label, "#202020")
-        text = "\n".join(lines)
+        bg_colour = colours.get(classification.label, "#202020")
+        text = classification.to_display_string()
         if text == self._last_text and bg_colour == self._last_bg_colour:
             return
         self._last_text = text
