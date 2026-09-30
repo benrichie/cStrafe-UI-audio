@@ -7,6 +7,7 @@ Fork of [cs2kitchen/cStrafe-UI-minimal](https://github.com/cs2kitchen/cStrafe-UI
 
 ## Installation
 https://youtu.be/XWCNudz3QrA?t=413
+Follow but install from this repo instead.
 
 ## Run
 
